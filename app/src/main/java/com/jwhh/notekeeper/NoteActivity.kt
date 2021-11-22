@@ -63,6 +63,11 @@ class NoteActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
+            R.id.action_reminder -> {
+            ReminderNotifications.notify(this, "Reminder",
+                getString(R.string.reminder_body, DataManager.notes[notePosition].title), notePosition)
+                true
+            }
             R.id.action_cancel -> {
                 isCancelling = true
                 finish()

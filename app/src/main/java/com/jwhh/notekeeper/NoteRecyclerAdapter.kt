@@ -8,12 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-class NoteRecyclerAdapter(val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<NoteRecyclerAdapter.ViewHolder>()
-{
-    private val layoutInflater = LayoutInflater.from(context)
+class NoteRecyclerAdapter(val context: Context) :
+    RecyclerView.Adapter<NoteRecyclerAdapter.ViewHolder>() {
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textCourse: TextView = itemView.findViewById(R.id.textCourse)
+        val textTitle: TextView = itemView.findViewById(R.id.textTitle)
+        var currentPosition = 0
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = layoutInflater.inflate(R.layout.item_note, parent, false)
+        val itemView = LayoutInflater
+            .from(context)
+            .inflate(R.layout.item_note, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -26,19 +33,11 @@ class NoteRecyclerAdapter(val context: Context) : androidx.recyclerview.widget.R
         holder.textCourse.text = note.course?.title
         holder.textTitle.text = note.title
         holder.currentPosition = position
-    }
 
-    inner class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
-        val textCourse: TextView = itemView.findViewById<TextView>(R.id.textCourse)
-        val textTitle: TextView = itemView.findViewById<TextView>(R.id.textTitle)
-        var currentPosition = 0;
-
-        init {
-            itemView.setOnClickListener {
-                val intent = Intent(context, NoteActivity::class.java)
-                intent.putExtra(NOTE_POSITION, currentPosition)
-                context.startActivity(intent)
-            }
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, NoteActivity::class.java)
+            intent.putExtra(NOTE_POSITION, holder.currentPosition)
+            context.startActivity(intent)
         }
     }
 }

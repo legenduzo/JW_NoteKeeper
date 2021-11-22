@@ -1,7 +1,6 @@
 package com.jwhh.notekeeper
 
 import android.content.Context
-import android.content.Intent
 import com.google.android.material.snackbar.Snackbar
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-class CourseRecyclerAdapter(val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<CourseRecyclerAdapter.ViewHolder>()
+class CourseRecyclerAdapter(val context: Context) : RecyclerView.Adapter<CourseRecyclerAdapter.ViewHolder>()
 {
     private val layoutInflater = LayoutInflater.from(context)
     private val courses = DataManager.courses.values.toList()
@@ -25,13 +24,13 @@ class CourseRecyclerAdapter(val context: Context) : androidx.recyclerview.widget
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val course = courses[position]
-        holder.textCourse.text = course?.title
+        holder.textCourse.text = course.title
         holder.currentPosition = position
     }
 
-    inner class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
-        val textCourse: TextView = itemView.findViewById<TextView>(R.id.textCourse)
-        var currentPosition = 0;
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textCourse: TextView = itemView.findViewById(R.id.textCourse)
+        var currentPosition = 0
 
         init {
             itemView.setOnClickListener {v ->
