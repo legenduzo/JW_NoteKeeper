@@ -1,6 +1,11 @@
 package com.jwhh.notekeeper
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -51,6 +56,17 @@ class ItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         nav_view.setNavigationItemSelectedListener(this)
 
         displayNotes()
+        registerNotificationChannel()
+    }
+
+    private fun registerNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.0) {
+            val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            val channel = NotificationChannel(ReminderNotifications.REMINDER_CHANNEL, "Note Reminders",
+            NotificationManager.IMPORTANCE_DEFAULT)
+            nm.createNotificationChannel(channel)
+        }
     }
 
     override fun onResume() {

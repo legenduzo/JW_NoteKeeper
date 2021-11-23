@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat
 
 object ReminderNotifications {
     private const val NOTIFICATION_TAG = "Reminder"
+    const val REMINDER_CHANNEL = "reminders"
 
     fun notify (context: Context, titleText: String, noteText:String, number: Int) {
 
@@ -22,13 +23,15 @@ object ReminderNotifications {
         "Share Note Reminder"),
         PendingIntent.FLAG_UPDATE_CURRENT)
 
-        val builder = NotificationCompat.Builder(context)
+        val builder = NotificationCompat.Builder(context, REMINDER_CHANNEL)
             .setDefaults(Notification.DEFAULT_ALL)
             .setSmallIcon(R.drawable.ic_white_notification)
             .setContentTitle(titleText)
             .setContentText(noteText)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
+
+            .addAction(R.drawable.ic_menu_share, "Share", shareIntent)
 
         notify(context,builder.build())
     }
@@ -43,6 +46,4 @@ object ReminderNotifications {
             nm.notify(NOTIFICATION_TAG.hashCode(), notification)
         }
     }
-
-
 }
