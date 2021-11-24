@@ -60,11 +60,13 @@ class ItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     }
 
     private fun registerNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.0) {
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.O) {
             val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-            val channel = NotificationChannel(ReminderNotifications.REMINDER_CHANNEL, "Note Reminders",
-            NotificationManager.IMPORTANCE_DEFAULT)
+            val channel = NotificationChannel(ReminderNotifications.REMINDER_CHANNEL,
+                "Note Reminders",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
             nm.createNotificationChannel(channel)
         }
     }
